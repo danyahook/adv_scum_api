@@ -1,3 +1,7 @@
 from django.contrib import admin
 
-# Register your models here.
+from api.models.site_model import Site
+from api.models.site_settings_model import SiteSettings
+
+admin.site.register(Site)
+admin.site.register(SiteSettings)
