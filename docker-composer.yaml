@@ -1,0 +1,35 @@
+version: '3.6'
+
+volumes:
+  pg_db:
+
+services:
+  adv_scum_web:
+    container_name: adv_scum_web
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./src:/usr/src/adv_scum/src
+    working_dir: /usr/src/adv_scum/
+    command: serve
+    ports:
+      - "8000:8000"
+    networks:
+      - default
+    depends_on:
+      - adv_scum_pg_db
+
+
+  adv_scum_pg_db:
+    container_name: adv_scum_pg_db
+    image: postgres:13.3
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - pg_db:/var/lib/postgresql/data
+    working_dir: /var/lib/postgresql/data
+    ports:
+      - "5432:5432"
