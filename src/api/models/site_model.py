@@ -6,7 +6,7 @@ from api.models.site_settings_model import SiteSettings
 
 
 class Site(models.Model):
-    site_uuid = models.UUIDField(default=uuid.uuid4)
+    site_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
     name = models.URLField(unique=True)
     is_valid = models.BooleanField(default=False)
     is_approved = models.BooleanField(default=False)
